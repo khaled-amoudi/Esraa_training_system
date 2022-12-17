@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModel\BaseModel;
+use App\Models\Scopes\CurrentSemesterScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,5 +44,18 @@ class Course extends BaseModel
 
     public function semester(){
         return $this->belongsTo(Semester::class);
+    }
+
+
+
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new CurrentSemesterScope);
     }
 }

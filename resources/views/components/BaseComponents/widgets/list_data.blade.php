@@ -3,6 +3,7 @@
     'title' => '',
     'buttons',
     'lists',
+    'cols' => 6,
 ])
 
 <div class="card">
@@ -23,7 +24,7 @@
     <div class="card-body p-0">
         <div class="row p-0 m-0">
             @foreach ($lists as $list)
-                <div class="col-12 col-md-6 border p-2 d-flex align-items-center">
+                <div class="col-12 col-md-{{ $cols }} border p-2 d-flex align-items-center">
                     <div class="row w-100 ">
                         <div class="col-4 d-flex justify-content-between align-items-center">
                             <span class="fw-bold">{{ $list['label'] }}</span>
@@ -49,7 +50,7 @@
                                     @case('relation_many')
                                         <div>
                                             @foreach ($model[$list['attribute']] as $item)
-                                                <span class="badge badge-pill bg-gradient-royal py-2">
+                                                <span class="badge badge-pill bg-gradient-royal py-2 mt-1">
                                                     <a class="text-white" href="{{ route($list['route'], $item['id']) }}">
                                                         {{ $item['name'] }}
                                                     </a>

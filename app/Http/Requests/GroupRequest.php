@@ -22,13 +22,13 @@ class GroupRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules($id = null)
     {
         return [
             'name' => ['required'],
             'course_id' => ['required', 'exists:courses,id'],
             'user_id' => ['required', 'exists:users,id'],
-            'group_number' => ['required', Rule::unique('groups')->ignore(request()->get('id'))],
+            'group_number' => ['required', Rule::unique('groups')->ignore($id)],
             // 'attendance_days',
             'attendance_state' => ['in:0,1', 'numeric'],
             'grades_state' => ['in:0,1', 'numeric'],

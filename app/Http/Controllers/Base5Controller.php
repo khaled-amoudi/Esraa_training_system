@@ -148,7 +148,7 @@ class Base5Controller extends BaseController
 
         $old_image = $model->image;
 
-        $request->validate($this->getRequest()->rules(), $this->getRequest()->messages());
+        $request->validate($this->getRequest()->rules($id), $this->getRequest()->messages());
         $updated = $model->update($this->setUpdateAttributes($request, $old_image));
 
         if($updated)
@@ -315,9 +315,9 @@ class Base5Controller extends BaseController
         $rules = $this->importRules();
         $import = Excel::import(new BaseImport($importChildObject, $model, $rules), request()->file('import_file'));
         if (!$import) {
-            return redirect()->route($this->route_index())->with('import_errors', 'something went wrong');
+            return redirect()->route($this->route_index())->with('import_errors', 'حدث خطأ أثناء الرفع');
         }
-        return redirect()->route($this->route_index())->with('success', 'File Imported Successfully');
+        return redirect()->route($this->route_index())->with('success', 'تم رفع الملف بنجاح');
         // return response()->json(['success' => 'You have successfully upload file, click submit button to store the data.']);
     }
 

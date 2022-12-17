@@ -5,11 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\YearController;
 use App\Http\Controllers\Dashboard\GroupController;
 use App\Http\Controllers\Dashboard\CourseController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\StudentController;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Teacher\TeacherAttendanceController;
 use App\Http\Controllers\Teacher\TeacherGroupController;
+use App\Http\Controllers\Teacher\TeacherController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,15 +35,11 @@ Route::get('/', function () {
 // Route::get('/teacher', function(){
 //     dd('welcome teacher');
 // });
-Route::get('/teacher', function(){
-    return view('teacher');
-})->middleware(['auth', 'verified'])->name('teacher');
+Route::get('/teacher', [TeacherController::class, 'index'])->middleware(['auth', 'verified'])->name('teacher');
 
 
-$routes_all_teacher = [
-];
-$routes_without_softdelete_export_import_teacher = [
-];
+$routes_all_teacher = [];
+$routes_without_softdelete_export_import_teacher = [];
 $routes_without_softdelete_teacher = [
     'teacher_attendance' => TeacherAttendanceController::class,
 ];
@@ -49,12 +48,12 @@ Route::name('teacher.')->prefix('/teacher')->middleware(['auth'])->group(functio
     Route::resource('teacher_group', TeacherGroupController::class);
 
     // Students Attendances
-    Route::get('teacher_group/{teacher_group}/student_attendances', [TeacherGroupController::class, 'student_attendances'])->name('student_attendances');
+    Route::get('teacher_group/{teacher_group}/student_attendances', [TeacherGroupController::class, 'show'])->name('student_attendances');
     Route::post('teacher_group/{teacher_group}/student_attendances/store', [TeacherGroupController::class, 'store_student_attendances'])->name('student_attendances.store');
     Route::post('teacher_group/{teacher_group}/student_attendances/disable_group_attendance_state', [TeacherGroupController::class, 'disable_group_attendance_state'])->name('student_attendances.disable_group_attendance_state');
 
     // Students Grades
-    Route::get('teacher_group/{teacher_group}/student_grades', [TeacherGroupController::class, 'student_grades'])->name('student_grades');
+    Route::get('teacher_group/{teacher_group}/student_grades', [TeacherGroupController::class, 'show'])->name('student_grades');
     Route::post('teacher_group/{teacher_group}/student_grades/store', [TeacherGroupController::class, 'store_student_grades'])->name('student_grades.store');
     Route::post('teacher_group/{teacher_group}/student_grades/disable_group_grades_state', [TeacherGroupController::class, 'disable_group_grades_state'])->name('student_attendances.disable_group_grades_state');
 
@@ -66,35 +65,34 @@ Route::name('teacher.')->prefix('/teacher')->middleware(['auth'])->group(functio
     Route::delete('teacher/detach-student-from-group/{student_id}/{group_id}', [GroupController::class, 'detach_student_from_group'])->name('detach_student_from_group');
 });
 
-foreach($routes_all_teacher as $route_name => $route_controller) {
+foreach ($routes_all_teacher as $route_name => $route_controller) {
     Route::controller($route_controller)->name('teacher.')->prefix('/teacher')->middleware(['auth'])->group(function () use ($route_name, $route_controller) {
-        Route::get($route_name.'/export-excel/', 'exportExcel')->name($route_name.'.exportExcel');
-        Route::get($route_name.'/export-excel-demo/', 'exportExcelDemo')->name($route_name.'.exportExcelDemo');
-        Route::get($route_name.'export-pdf/', 'exportPdf')->name($route_name.'.exportPdf');
-        Route::post($route_name.'import-excel/', 'importExcel')->name($route_name.'.importExcel');
+        Route::get($route_name . '/export-excel/', 'exportExcel')->name($route_name . '.exportExcel');
+        Route::get($route_name . '/export-excel-demo/', 'exportExcelDemo')->name($route_name . '.exportExcelDemo');
+        Route::get($route_name . 'export-pdf/', 'exportPdf')->name($route_name . '.exportPdf');
+        Route::post($route_name . 'import-excel/', 'importExcel')->name($route_name . '.importExcel');
 
-        Route::get($route_name.'-trash', 'trash')->name($route_name.'.trash');
-        Route::put($route_name.'/{category}/restore', 'restore')->name($route_name.'.restore');
-        Route::delete($route_name.'/{category}/force-delete', 'forceDelete')->name($route_name.'.forceDelete');
+        Route::get($route_name . '-trash', 'trash')->name($route_name . '.trash');
+        Route::put($route_name . '/{category}/restore', 'restore')->name($route_name . '.restore');
+        Route::delete($route_name . '/{category}/force-delete', 'forceDelete')->name($route_name . '.forceDelete');
         // Route::delete($route_name.'/force-group-delete', 'deleteGroup')->name($route_name.'.deleteGroup');
 
         Route::resource($route_name, $route_controller);
-
     });
 }
 
-foreach($routes_without_softdelete_export_import_teacher as $route_name => $route_controller) {
+foreach ($routes_without_softdelete_export_import_teacher as $route_name => $route_controller) {
     Route::controller($route_controller)->name('teacher.')->prefix('/teacher')->middleware(['auth'])->group(function () use ($route_name, $route_controller) {
         Route::resource($route_name, $route_controller);
     });
 }
 
-foreach($routes_without_softdelete_teacher as $route_name => $route_controller) {
+foreach ($routes_without_softdelete_teacher as $route_name => $route_controller) {
     Route::controller($route_controller)->name('teacher.')->prefix('/teacher')->middleware(['auth'])->group(function () use ($route_name, $route_controller) {
-        Route::get($route_name.'/export-excel/', 'exportExcel')->name($route_name.'.exportExcel');
-        Route::get($route_name.'/export-excel-demo/', 'exportExcelDemo')->name($route_name.'.exportExcelDemo');
-        Route::get($route_name.'export-pdf/', 'exportPdf')->name($route_name.'.exportPdf');
-        Route::post($route_name.'import-excel/', 'importExcel')->name($route_name.'.importExcel');
+        Route::get($route_name . '/export-excel/', 'exportExcel')->name($route_name . '.exportExcel');
+        Route::get($route_name . '/export-excel-demo/', 'exportExcelDemo')->name($route_name . '.exportExcelDemo');
+        Route::get($route_name . 'export-pdf/', 'exportPdf')->name($route_name . '.exportPdf');
+        Route::post($route_name . 'import-excel/', 'importExcel')->name($route_name . '.importExcel');
         Route::resource($route_name, $route_controller);
     });
 }
@@ -113,9 +111,7 @@ foreach($routes_without_softdelete_teacher as $route_name => $route_controller) 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified', 'isAdmin'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified', 'isAdmin'])->name('dashboard');
 
 
 Route::name('dashboard.')->prefix('/dashboard')->middleware(['auth', 'isAdmin'])->group(function () {
@@ -148,35 +144,34 @@ Route::name('dashboard.')->prefix('/dashboard')->middleware(['auth', 'isAdmin'])
 });
 
 
-foreach($routes_all as $route_name => $route_controller) {
+foreach ($routes_all as $route_name => $route_controller) {
     Route::controller($route_controller)->name('dashboard.')->prefix('/dashboard')->middleware(['auth', 'isAdmin'])->group(function () use ($route_name, $route_controller) {
-        Route::get($route_name.'/export-excel/', 'exportExcel')->name($route_name.'.exportExcel');
-        Route::get($route_name.'/export-excel-demo/', 'exportExcelDemo')->name($route_name.'.exportExcelDemo');
-        Route::get($route_name.'export-pdf/', 'exportPdf')->name($route_name.'.exportPdf');
-        Route::post($route_name.'import-excel/', 'importExcel')->name($route_name.'.importExcel');
+        Route::get($route_name . '/export-excel/', 'exportExcel')->name($route_name . '.exportExcel');
+        Route::get($route_name . '/export-excel-demo/', 'exportExcelDemo')->name($route_name . '.exportExcelDemo');
+        Route::get($route_name . 'export-pdf/', 'exportPdf')->name($route_name . '.exportPdf');
+        Route::post($route_name . 'import-excel/', 'importExcel')->name($route_name . '.importExcel');
 
-        Route::get($route_name.'-trash', 'trash')->name($route_name.'.trash');
-        Route::put($route_name.'/{category}/restore', 'restore')->name($route_name.'.restore');
-        Route::delete($route_name.'/{category}/force-delete', 'forceDelete')->name($route_name.'.forceDelete');
+        Route::get($route_name . '-trash', 'trash')->name($route_name . '.trash');
+        Route::put($route_name . '/{category}/restore', 'restore')->name($route_name . '.restore');
+        Route::delete($route_name . '/{category}/force-delete', 'forceDelete')->name($route_name . '.forceDelete');
         // Route::delete($route_name.'/force-group-delete', 'deleteGroup')->name($route_name.'.deleteGroup');
 
         Route::resource($route_name, $route_controller);
-
     });
 }
 
-foreach($routes_without_softdelete_export_import as $route_name => $route_controller) {
+foreach ($routes_without_softdelete_export_import as $route_name => $route_controller) {
     Route::controller($route_controller)->name('dashboard.')->prefix('/dashboard')->middleware(['auth', 'isAdmin'])->group(function () use ($route_name, $route_controller) {
         Route::resource($route_name, $route_controller);
     });
 }
 
-foreach($routes_student as $route_name => $route_controller) {
+foreach ($routes_student as $route_name => $route_controller) {
     Route::controller($route_controller)->name('dashboard.')->prefix('/dashboard')->middleware(['auth', 'isAdmin'])->group(function () use ($route_name, $route_controller) {
-        Route::get($route_name.'/export-excel/', 'exportExcel')->name($route_name.'.exportExcel');
-        Route::get($route_name.'/export-excel-demo/', 'exportExcelDemo')->name($route_name.'.exportExcelDemo');
-        Route::get($route_name.'export-pdf/', 'exportPdf')->name($route_name.'.exportPdf');
-        Route::post($route_name.'import-excel/', 'importExcel')->name($route_name.'.importExcel');
+        Route::get($route_name . '/export-excel/', 'exportExcel')->name($route_name . '.exportExcel');
+        Route::get($route_name . '/export-excel-demo/', 'exportExcelDemo')->name($route_name . '.exportExcelDemo');
+        Route::get($route_name . 'export-pdf/', 'exportPdf')->name($route_name . '.exportPdf');
+        Route::post($route_name . 'import-excel/', 'importExcel')->name($route_name . '.importExcel');
         Route::resource($route_name, $route_controller)->except(['show', 'edit', 'update']);
     });
 }
@@ -192,11 +187,11 @@ foreach($routes_student as $route_name => $route_controller) {
 
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

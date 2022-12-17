@@ -73,7 +73,40 @@
         <form action="{{ route('teacher.deactivate_teacher_attendance_permission', auth()->user()->id) }}" method="post">
             @csrf
 
-            <button type="submit" class="btn btn-dark @if(auth()->user()->attendance_state == 0) disabled @endif">تأكيد نهائي</button>
+            <a href="#" type="button" class="btn btn-sm btn-dark @if (auth()->user()->attendance_state == 0) disabled @endif"
+                data-bs-toggle="modal" data-bs-target="#exampleModalActionFinalTeacherAttendance" data-bs-original-title="Show"
+                aria-label="Show">
+                تأكيد نهائي
+            </a>
+            <div class="modal fade" id="exampleModalActionFinalTeacherAttendance" tabindex="-1"
+                aria-labelledby="exampleModalActionLabelFinalTeacherAttendance" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalActionLabelFinalTeacherAttendance">
+                            </h5>
+                            <button type="button" class="btn-close bg-danger text-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-3">
+
+                            <h6>هل أنت متأكد من تأكيد حصر دوامك كمدرب بشكل نهائي ؟</h6>
+                            <p>تأكيد حصر دوامك كمدرب بشكل نهائي يؤدي إلى منعك من التعديل عليها لاحقا إلا من خلال التواصل مع
+                                المسؤول لي                                                                                                                          نحك الصلاحية</p>
+
+                            <div>
+                                <button type="button" class="btn btn-sm btn-cancel shadow-sm"
+                                    data-bs-dismiss="modal">إلغاء</button>
+                                <button type="submit"
+                                    class="btn btn-sm btn-dark @if (auth()->user()->attendance_state == 0) disabled @endif">
+                                    <span class="mx-1">تأكيد الحصر النهائي</span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
 
         @endsection

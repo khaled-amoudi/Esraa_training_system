@@ -16,6 +16,12 @@ class Semester extends Model
     ];
 
 
+
+    public function scopeCurrentSemester($query){
+        $query->where('is_current_semester', 1)->first();
+    }
+
+
     public function year(){
         return $this->belongsTo(Year::class);
     }

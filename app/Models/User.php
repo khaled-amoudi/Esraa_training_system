@@ -54,8 +54,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function scopeTeacher(Builder $query){
-        $query->where('role', '0');
+    public function scopeTeacher($query){
+        $query->where('role', 0);
     }
 
     public function scopeSearch(Builder $query, $request)
@@ -72,7 +72,6 @@ class User extends Authenticatable
     public function teacherAttendances(){
         return $this->hasMany(TeacherAttendance::class);
     }
-
 
 
     protected function attendanceState(): Attribute

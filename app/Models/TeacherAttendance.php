@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use App\Models\BaseModel\BaseModel;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\CurrentSemesterScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TeacherAttendance extends BaseModel
 {
@@ -33,5 +34,16 @@ class TeacherAttendance extends BaseModel
 
     public function group(){
         return $this->belongsTo(Group::class);
+    }
+
+
+        /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new CurrentSemesterScope);
     }
 }

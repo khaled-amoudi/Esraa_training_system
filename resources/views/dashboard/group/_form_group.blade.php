@@ -32,5 +32,7 @@
 
         <x-BaseComponents.form.common.input type="number" name="attendance_days" :model="$model" label="عدد أيام الدوام (بالأرقام)" placeholder="أدخل عدد أيام الدوام (بالأرقام)" />
 
+        <input type="hidden" value="{{ $current_semester->id }}" name="semester_id">
+
     </div>
 </div>

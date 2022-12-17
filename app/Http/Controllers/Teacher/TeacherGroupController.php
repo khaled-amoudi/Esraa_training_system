@@ -39,6 +39,46 @@ class TeacherGroupController extends Base5Controller
         ];
     }
 
+    public function show($id)
+    {
+        $request = request();
+        $object = $this->getModel()::find($id);
+        $objectResource = $this->getResource($object);
+        // $objectResource = new ($this->resource)($object);
+        $model = $objectResource->resolve();
+        $additionalData = $this->showAdditionalData($id);
+        if (!$model) {
+            return redirect()->route($this->route_index())->with('fail', $this->printModelText() . ' Doesn`t Exist');
+        }
+
+
+        $data['model'] = $model;
+        $data['additionalData'] = $additionalData;
+
+
+        $data['group'] = Group::find($id);
+        $data['dates'] = GroupAttendanceDay::whereBelongsTo($object)->first();
+        $data['student_attendances'] = StudentAttendance::where('group_id', $id)->get(['student_id', 'course_id', 'attendance']);
+        $data['attendance_days_count'] = $object->attendance_days;
+        $data['students'] = $object->students;
+        $data['i'] = 1;
+
+        if ($request->ajax()){
+            if ($request->get('action-button') == 'student_grades'){
+                $data['course_id'] = $object->course->id;
+                $data['students'] = $object->students;
+                $data['grades'] = $object->student_grades;
+                $html = view('teacher.teacher_group.render.render_student_grades', $data)->render();
+            } else {
+                $html = view('teacher.teacher_group.render.render_student_attendance', $data)->render();
+            }
+            return response()->json(compact('html'));
+        }else {
+            return view($this->view_show(), $data)->with('i', 1);
+        }
+    }
+
+
 
 
     /////// Start Student Attendance & Store Student Attendance ////////

@@ -58,8 +58,37 @@
         <form action="{{ route('teacher.student_attendances.disable_group_grades_state', $group->id) }}" method="POST">
             @csrf
 
-            <button type="submit" class="btn btn-sm btn-dark @if ($group->grades_state == 0) disabled @endif">إعتماد
-                الدرجات</button>
+            <a href="#" type="button" class="btn btn-sm btn-dark @if ($group->grades_state == 0) disabled @endif" data-bs-toggle="modal"
+                data-bs-target="#exampleModalActionFinalGrades" data-bs-original-title="Show" aria-label="Show">
+                إعتماد الدرجات
+            </a>
+            <div class="modal fade" id="exampleModalActionFinalGrades" tabindex="-1"
+                aria-labelledby="exampleModalActionLabelFinalGrades" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalActionLabelFinalGrades">
+                            </h5>
+                            <button type="button" class="btn-close bg-danger text-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body p-3">
+
+                            <h6>هل أنت متأكد من إعتماد درجات الطلاب بشكل نهائي ؟</h6>
+                            <p>إعتماد درجات الطلاب بشكل نهائي يؤدي إلى منعك من التعديل عليها لاحقا إلا من خلال التواصل مع المسؤول ليمنحك الصلاحية</p>
+
+                            <div>
+                                <button type="button" class="btn btn-sm btn-cancel shadow-sm"
+                                                                    data-bs-dismiss="modal">إلغاء</button>
+                                <button type="submit" class="btn btn-sm btn-dark @if ($group->grades_state == 0) disabled @endif">
+                                    <span class="mx-1">تأكيد الإعتماد النهائي</span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </form>
     </div>

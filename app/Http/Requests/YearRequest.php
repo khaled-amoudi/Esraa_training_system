@@ -22,10 +22,10 @@ class YearRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules($id = null)
     {
         return [
-            'year' => ['required', 'min:4', 'max:4', Rule::unique('years')->ignore(request()->get('id'))],
+            'year' => ['required', 'min:4', 'max:9', Rule::unique('years')->ignore($id)],
         ];
     }
 }

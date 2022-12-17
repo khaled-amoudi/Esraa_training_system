@@ -1,34 +1,41 @@
 @extends('Layouts.master')
 
 @section('master')
+    @foreach ($model['groups'] as $item)
+        {{ $item->name }}
+    @endforeach
 
-@foreach ($model['groups'] as $item)
-    {{ $item->name }}
-@endforeach
+    <x-BaseComponents.widgets.list_data :model="$model" title="عرض المساق" :buttons="[
+        [
+            'route' => 'dashboard.course.index',
+            'label' => 'العودة للمساقات',
+            'class' => 'btn-outline-dark',
+        ],
+    ]" :lists="[
+        [
+            'label' => 'إسم المساق',
+            'attribute' => 'name',
+        ],
+        [
+            'label' => 'رقم المساق',
+            'attribute' => 'course_number',
+        ],
+        [
+            'label' => 'الدرجة العلمية',
+            'attribute' => 'degree',
+        ],
+    ]" />
 
-<x-BaseComponents.widgets.list_data :model="$model" title="عرض المساق" :buttons="[
-    [
-        'route' => 'dashboard.course.index',
-        'label' => 'المساقات',
-        'class' => 'bg-dark text-white'
-    ],
-]"
 
+
+<x-BaseComponents.widgets.list_data :model="$model" :cols="12" title="مجموعات المساق"
 :lists="[
     [
-        'label' => 'إسم المساق',
-        'attribute' => 'name'
+        'type' => 'relation_many',
+        'route' => 'dashboard.group.show',
+        'label' => 'المجموعات',
+        'attribute' => 'groups',
     ],
-    [
-        'label' => 'رقم المساق',
-        'attribute' => 'course_number'
-    ],
-    // [
-    //     'type' => 'link',
-    //     'label' => 'Category',
-    //     'attribute' => 'category_name',
-    //     'route' => 'dashboard.categories.show'
-    // ],
-]"
-/>
+]" />
+
 @endsection

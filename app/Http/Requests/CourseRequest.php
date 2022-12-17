@@ -23,11 +23,11 @@ class CourseRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules($id = null)
     {
         return [
             'name' => ['required'],
-            'course_number' => ['required', 'unique:'.Course::class],
+            'course_number' => ['required', Rule::unique('courses')->ignore($id)],
             'semester_id' => ['required', 'exists:semesters,id'],
             'degree' => ['required', 'in:بكالوريس,دبلوم']
         ];

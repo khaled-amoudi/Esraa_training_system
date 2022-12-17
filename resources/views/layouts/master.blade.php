@@ -74,11 +74,11 @@
     <!--start wrapper-->
     <div class="wrapper">
 
-        {{-- @if (request()->routeIs(['dashboard', 'dashboard.*'])) --}}
-            {{-- @include('layouts.partials.header_dashboard') --}}
-        {{-- @elseif (request()->routeIs(['teacher', 'teacher.*'])) --}}
+        @if (request()->routeIs(['dashboard', 'dashboard.*']))
+            @include('layouts.partials.header_dashboard')
+        @elseif (request()->routeIs(['teacher', 'teacher.*']))
             @include('layouts.partials.header_teacher')
-        {{-- @endif --}}
+        @endif
 
         <x-BaseComponents.layout.sidebar />
 

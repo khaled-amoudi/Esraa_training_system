@@ -10,6 +10,14 @@ class CourseController extends Base5Controller
 {
     public $route_view_name = "dashboard.course";
 
+
+    public function exportHeadings(){
+        return [
+            'name',
+            'course_number',
+            'degree',
+        ];
+    }
     // public function createEditAdditionalData()
     // {
     //     $additionalData = Semester::get(['id', 'name']);
@@ -18,17 +26,21 @@ class CourseController extends Base5Controller
     //     ];
     // }
 
-    // public function importRules()
-    // {
-    //     return [
-    //         '*.name' => ['required', 'unique:categories'],
-    //     ];
-    // }
-    // public function importCollection($row)
-    // {
-    //     return [
-    //         'name' => $row['name'],
-    //         'slug' => Str::slug($row['name']),
-    //     ];
-    // }
+    public function importRules()
+    {
+        return [
+            '*.name' => ['required'],
+            '*.course_number' => ['required', 'unique:courses'],
+            '*.degree' => ['required', 'in:بكالوريس,دبلوم'],
+        ];
+    }
+    public function importCollection($row)
+    {
+        return [
+            'name' => $row['name'],
+            'course_number' => $row['course_number'],
+            'semester_id' => Semester::where('is_current_semester', 1)->first()->id,
+            'degree' => $row['degree'],
+        ];
+    }
 }

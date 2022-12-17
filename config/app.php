@@ -4,8 +4,8 @@ use App\Providers\ViewServiceProvider;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Facade;
 use Maatwebsite\Excel\ExcelServiceProvider;
-use Meneses\LaravelMpdf\Facades\LaravelMpdf;
-use Meneses\LaravelMpdf\LaravelMpdfServiceProvider;
+// use Meneses\LaravelMpdf\Facades\LaravelMpdf;
+// use Meneses\LaravelMpdf\LaravelMpdfServiceProvider;
 
 return [
 
@@ -191,7 +191,6 @@ return [
          * Package Service Providers...
          */
         ExcelServiceProvider::class,
-        LaravelMpdfServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -218,7 +217,6 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Excel' => Excel::class,
-        'PDF' => LaravelMpdf::class,
     ])->toArray(),
 
 ];

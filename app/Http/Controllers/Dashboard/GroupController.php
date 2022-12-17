@@ -86,6 +86,15 @@ class GroupController extends Base5Controller
     }
 
 
+
+    public function deleteRelations($model)
+    {
+        return GroupAttendanceDay::where('group_id', $model->id)->delete();
+    }
+
+
+
+
     public function attach_student_to_group(Request $request)
     {
         $student = Student::find($request->student_id);

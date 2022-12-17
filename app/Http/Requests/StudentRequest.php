@@ -22,11 +22,11 @@ class StudentRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules($id = null)
     {
         return [
             'name' => ['required'],
-            'university_number' => ['required', Rule::unique('students')->ignore(request()->get('id'))],
+            'university_number' => ['required', Rule::unique('students')->ignore($id)],
             'college' => ['required', 'in:بكالوريس,دبلوم'],
         ];
     }

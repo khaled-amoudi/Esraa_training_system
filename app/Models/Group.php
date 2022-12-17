@@ -5,9 +5,10 @@ namespace App\Models;
 use App\Models\BaseModel\BaseModel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\Scopes\CurrentSemesterScope;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Group extends BaseModel
 {
@@ -21,6 +22,7 @@ class Group extends BaseModel
         'attendance_days',
         'attendance_state',
         'grades_state',
+        'semester_id',
     ];
 
     protected $columnsForSheets = [
@@ -65,7 +67,6 @@ class Group extends BaseModel
         return $this->hasMany(StudentGrade::class);
     }
 
-
     protected function attendanceState(): Attribute
     {
         return Attribute::make(
@@ -81,4 +82,15 @@ class Group extends BaseModel
     // public function groupAttendanceDay(){
     //     return $this->belongsTo(GroupAttendanceDay::class);
     // }
+
+
+        /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::addGlobalScope(new CurrentSemesterScope);
+    }
 }

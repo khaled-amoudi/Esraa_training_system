@@ -21,7 +21,7 @@ class isAdmin
             if(Auth::user()->role == '1'){
                 return $next($request);
             } else {
-                return redirect('/teacher')->with(['success' => 'Access Denied, as you are not an admin !!']);
+                return redirect('/teacher');
             }
         } else {
             return redirect()->back()->with(['fail' => 'Please, Login First']);
