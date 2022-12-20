@@ -34,11 +34,22 @@ class GroupController extends Base5Controller
     public function setCreateResource($request)
     {
         return [
-            'attendance_state' => 1,
-            'grades_state' => 1,
+            'attendance_days' => $request->attendance_days ?? 8,
+        ];
+    }
+    public function setUpdateResource($request, $old_image)
+    {
+        return [
+            'attendance_days' => $request->attendance_days ?? 8,
         ];
     }
 
+    //    public function setCreateUpdateResource($request, $old_image = null)
+//    {
+//        return [
+//            'attendance_days' => $request->attendance_days != null ? $request->attendance_days : 8,
+//        ];
+//    }
 
 
     public function show($id)
@@ -102,7 +113,6 @@ class GroupController extends Base5Controller
         $course_id = $group->course->id;
         $current_semester = Semester::where('is_current_semester', 1)->first()->id;
 
-
         try {
             DB::beginTransaction();
 
@@ -110,7 +120,7 @@ class GroupController extends Base5Controller
 
 
             // create student attendance object
-            $thisStdGrade = StudentGrade::where('student_id', $student->id)->where('course_id', $course_id)->where('semester_id', $current_semester)->first();
+            $thisStdGrade = StudentGrade::where('student_id', $student->id)->where('course_id', $course_id)->where('semester_id', $current_semester)->exists();
             if (!$thisStdGrade) {
                 StudentGrade::create([
                     'student_id' => $request->student_id,
@@ -155,5 +165,16 @@ class GroupController extends Base5Controller
 
             return redirect()->back()->with(['success' => 'تم حذف الطالب من المجموعة بنجاح ']);
         }
+    }
+
+    public function exportPdfHeadings()
+    {
+        return [
+            'إسم المجموعة',
+            'رقم المجموعة',
+            'مساق المجموعة',
+            'مدرب المجموعة',
+            'عدد أيام الدوام'
+        ];
     }
 }

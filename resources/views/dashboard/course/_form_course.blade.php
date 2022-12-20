@@ -27,7 +27,7 @@
         {{-- <x-BaseComponents.form.common.select_dynamic name="semester_id" :model="$model" label="الفصل الدراسي"
         :options="$additionalData['semesters']" default_option="" option_value_column="id" option_label_column="name" /> --}}
 
-        <input type="hidden" value="{{ $current_semester->id }}" name="semester_id">
+        <input type="hidden" value="{{ $current_semester?->id }}" name="semester_id">
 
         <x-BaseComponents.form.common.select_fixed name="degree" :model="$model"
         :options="[

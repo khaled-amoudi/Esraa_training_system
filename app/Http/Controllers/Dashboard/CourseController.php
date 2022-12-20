@@ -11,20 +11,18 @@ class CourseController extends Base5Controller
     public $route_view_name = "dashboard.course";
 
 
-    public function exportHeadings(){
+    public function exportPdfHeadings()
+    {
         return [
-            'name',
-            'course_number',
-            'degree',
+            'إسم المساق',
+            'رقم المساق',
+            'الكلية'
         ];
     }
-    // public function createEditAdditionalData()
-    // {
-    //     $additionalData = Semester::get(['id', 'name']);
-    //     return [
-    //         'semesters' => $additionalData,
-    //     ];
-    // }
+
+
+
+
 
     public function importRules()
     {

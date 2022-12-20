@@ -69,7 +69,7 @@
                                     <td colspan="{{ $attendance_days_count }}">
                                         <div class="text-secondary fw-bold pt-3 text-center">
                                             <img class="w-25 h-25" style="opacity: .8"
-                                                src="{{ asset('admin/assets/images/no-data-1.svg') }}" alt="">
+                                                src="{{ asset('admin/assets/images/no-data-3.svg') }}" alt="">
                                             <div class="my-3 fw-normal">لم يتم إضافة أي طالب لهذه المجموعة حتى الآن</div>
                                         </div>
                                     </td>

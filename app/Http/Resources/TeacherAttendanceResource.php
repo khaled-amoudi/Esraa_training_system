@@ -17,6 +17,7 @@ class TeacherAttendanceResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'teacher_id' => optional($this->teacher)->name,
             'period' => $this->period,
             'group_id' => optional($this->group)->name,
             'semester_id' => $this->semester_id,

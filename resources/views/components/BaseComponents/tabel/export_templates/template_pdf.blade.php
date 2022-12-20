@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Categories</title>
+    <title>Export PDF</title>
     <style>
         table{
             border-collapse: collapse !important;

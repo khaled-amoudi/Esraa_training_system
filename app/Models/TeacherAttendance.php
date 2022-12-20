@@ -23,10 +23,9 @@ class TeacherAttendance extends BaseModel
     ];
 
     protected $columnsForSheets = [
-        'user_id',
+        'teacher_id',
         'period',
         'group_id',
-        'semester_id',
         'date',
         'coming_time',
         'leaving_time'
@@ -36,6 +35,9 @@ class TeacherAttendance extends BaseModel
         return $this->belongsTo(Group::class);
     }
 
+    public function teacher(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
         /**
      * The "booted" method of the model.

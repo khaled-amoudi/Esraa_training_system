@@ -91,4 +91,17 @@ class TeacherAttendanceController extends Base5Controller
         }
         return redirect()->route('dashboard.teacher.show', $teacher_id)->with('success', 'تم تغيير صلاحية حصر الدوام للمدرب بنجاح');
     }
+
+
+    public function exportHeadings()
+    {
+        return [
+            'إسم المدرب',
+            'الفترة',
+            'المجموعة',
+            'التاريخ',
+            'وقت الحضور',
+            'وقت المغادرة'
+        ];
+    }
 }

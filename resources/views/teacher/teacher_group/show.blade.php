@@ -135,7 +135,7 @@
                                 <div class="kh-modal-body p-4">
                                     <div class="mb-3">
                                         <label class="form-label">إختر طالب لإضافته للمجموعة</label>
-                                        <select class="single-select">
+                                        <select class="single-select" name="student_id">
                                             @foreach ($additionalData['all_students'] as $student)
                                                 <option value="{{ $student['id'] }}">
                                                     {{ $student['university_number'] . ' - ' . $student['name'] }}
@@ -145,7 +145,7 @@
                                     </div>
 
                                     <input type="hidden" name="group_id" value="{{ $model['id'] }}">
-                                    <input type="hidden" name="semester_id" value="{{ $current_semester->id }}">
+                                    <input type="hidden" name="semester_id" value="{{ $current_semester?->id }}">
 
                                 </div>
                                 <div class="kh-modal-footer rounded-3 px-4 py-3 d-flex justify-content-end">

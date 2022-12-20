@@ -27,9 +27,9 @@ class Group extends BaseModel
 
     protected $columnsForSheets = [
         'name',
-        'course_id',
-        'user_id',
         'group_number',
+        'course_id',
+        'teacher_id',
         'attendance_days',
     ];
 

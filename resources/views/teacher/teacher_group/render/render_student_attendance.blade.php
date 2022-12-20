@@ -17,7 +17,7 @@
                             @foreach (json_decode($dates->dates) as $date)
                                 <div class="col-3 d-flex justify-content-center mb-2">
                                     <span class="mx-2 fw-bold">يوم <span
-                                            class="text-primary">{{ $i }}</span></span>
+                                            class="text-primary">{{ $i++ }}</span></span>
                                     <input type="date" name="attendanceDate[]" value="{{ $date }}"
                                         @if ($group->attendance_state == 0) disabled @endif />
                                 </div>
@@ -68,7 +68,7 @@
                                 <td colspan="{{ $attendance_days_count }}">
                                     <div class="text-secondary fw-bold pt-3 text-center">
                                         <img class="w-25 h-25" style="opacity: .8"
-                                            src="{{ asset('admin/assets/images/no-data-1.svg') }}" alt="">
+                                            src="{{ asset('admin/assets/images/no-data-3.svg') }}" alt="">
                                         <div class="my-3 fw-normal">لم يتم إضافة أي طالب لهذه المجموعة حتى الآن</div>
                                     </div>
                                 </td>

@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ asset('admin/assets/images/main-logo.png') }}" style="width: 50px" type="image/png" />
+{{--    <link rel="icon" href="{{ asset('admin/assets/images/main-logo.png') }}" style="width: 50px" type="image/png" />--}}
 
     <!-- date time picker css links-->
     {{-- <link href="{{ asset('admin/assets/plugins/datetimepicker/css/classic.css') }}" rel="stylesheet">

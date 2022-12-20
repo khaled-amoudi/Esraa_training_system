@@ -53,7 +53,7 @@
                     <div class="d-flex align-items-center">
                         <div class="">
                             <h6 class="mb-1">الفصل الدراسي الحالي</h6>
-                            <h4 class="mb-0 text-pink">{{ $current_semester->name }}</h4>
+                            <h4 class="mb-0 text-pink">{{ $current_semester?->name }}</h4>
                         </div>
                         <div class="ms-auto widget-icon bg-pink text-white">
                             <i class="lni lni-calendar"></i>

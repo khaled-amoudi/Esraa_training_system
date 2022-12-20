@@ -25,7 +25,7 @@
                     <x-BaseComponents.form.common.input cols="2" type="time" name="leaving_time" label="وقت المغادرة"
                         :model="$model" />
 
-                    <input type="hidden" name="semester_id" value="{{ $current_semester->id }}">
+                    <input type="hidden" name="semester_id" value="{{ $current_semester?->id }}">
                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
 

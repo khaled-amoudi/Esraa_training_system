@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($students as $student)
+                        @forelse ($students as $student)
                             <tr class="text-center">
                                 <td class="border">{{ $i++ }}</td>
                                 <td class="border">{{ $student->name }}</td>
@@ -46,7 +46,17 @@
                                     @endif
                                 @endforeach
                             </tr>
-                        @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="7">
+                                        <div class="text-secondary fw-bold pt-3 text-center">
+                                            <img class="w-25 h-25" style="opacity: .8"
+                                                 src="{{ asset('admin/assets/images/no-data-3.svg') }}" alt="">
+                                            <div class="my-3 fw-normal">لم يتم إضافة أي طالب لهذه المجموعة حتى الآن</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforelse
                     </tbody>
                 </table>
             </div>

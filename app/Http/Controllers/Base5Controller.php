@@ -149,6 +149,7 @@ class Base5Controller extends BaseController
         $old_image = $model->image;
 
         $request->validate($this->getRequest()->rules($id), $this->getRequest()->messages());
+//        dd($this->setUpdateAttributes($request, $old_image));
         $updated = $model->update($this->setUpdateAttributes($request, $old_image));
 
         if($updated)

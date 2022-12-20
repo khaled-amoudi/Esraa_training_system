@@ -8,4 +8,15 @@ use App\Http\Controllers\Base5Controller;
 class StudentController extends Base5Controller
 {
     public $route_view_name = "dashboard.student";
+
+
+
+    public function exportPdfHeadings()
+    {
+        return [
+            'إسم الطالب',
+            'الرقم الجامعي',
+            'الكلية'
+        ];
+    }
 }

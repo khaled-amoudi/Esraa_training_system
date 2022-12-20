@@ -105,7 +105,7 @@
                         <tr>
                             <td colspan="{{ count($ths) }}">
                                 <div class="text-secondary fw-bold pt-3 text-center">
-                                    <img class="w-25 h-25" src="{{ asset('admin/assets/images/no-data-1.svg') }}"
+                                    <img class="w-25 h-25" src="{{ asset('admin/assets/images/no-data-3.svg') }}"
                                         alt="">
                                         <div class="my-3 fw-normal">يبدو أنه لا يوجد أي بيانات لعرضها</div>
                                 </div>

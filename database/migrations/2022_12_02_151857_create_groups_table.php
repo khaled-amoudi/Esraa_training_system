@@ -19,9 +19,9 @@ return new class extends Migration
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('user_id');
             $table->string('group_number');
-            $table->string('attendance_days')->default(8);
-            $table->tinyInteger('attendance_state')->default(1);
-            $table->tinyInteger('grades_state')->default(1);
+            $table->string('attendance_days')->default(8)->nullable();
+            $table->string('attendance_state')->default(1);
+            $table->string('grades_state')->default(1);
             $table->unsignedBigInteger('semester_id');
             $table->softDeletes();
             $table->timestamps();

@@ -62,7 +62,7 @@
                                             @endforeach
                                         </select>
                                         <input type="hidden" name="group_id" value="{{ $model['id'] }}">
-                                        <input type="hidden" name="semester_id" value="{{ $current_semester->id }}">
+                                        <input type="hidden" name="semester_id" value="{{ $current_semester?->id }}">
 
                                     </div>
                                     <div class="modal-footer">

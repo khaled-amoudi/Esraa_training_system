@@ -18,7 +18,12 @@ class CurrentSemesterScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $semester_id = Semester::where('is_current_semester', '1')->first()->id;
-        $builder->where('semester_id', $semester_id);
+        $semester_id_exists = Semester::where('is_current_semester', '1')->exists();
+        if($semester_id_exists){
+            $semester_id = optional(Semester::where('is_current_semester', '1')->first())->id;
+            $builder->where('semester_id', $semester_id);
+        } else {
+            $builder;
+        }
     }
 }

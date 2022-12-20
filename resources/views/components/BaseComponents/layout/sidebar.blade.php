@@ -1,7 +1,7 @@
         <aside class="sidebar-wrapper" data-simplebar="true">
             <div class="sidebar-header">
                 <div>
-                    <img src="{{ asset('storage/uploads/logo3.png') }}" style="width: 170px" class="logo-icon"
+                    <img src="{{ asset('admin/assets/images/logos/logo3.png') }}" style="width: 170px" class="logo-icon"
                         alt="logo icon">
                 </div>
                 {{-- <div>
