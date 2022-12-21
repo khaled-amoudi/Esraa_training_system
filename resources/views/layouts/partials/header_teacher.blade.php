@@ -40,7 +40,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="{{ route('dashboard.teacher.edit', $user->id) }}">
+                                <a class="dropdown-item" href="{{ route('teacher.edit', $user->id) }}">
                                     <div class="d-flex align-items-center">
                                         <div class=""><i class="bi bi-person-fill"></i></div>
                                         <div class="ms-3"><span>تغيير كلمة المرور</span></div>

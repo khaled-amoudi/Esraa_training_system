@@ -3,7 +3,7 @@
 @section('master')
     <x-BaseComponents.tabel.base-tabel
         :tabel_data="[
-            'table_title' => 'Trashed teacher',
+            'table_title' => 'المدربين المؤرشفين',
             'table_button_route' => 'dashboard.teacher.create'
         ]"
 

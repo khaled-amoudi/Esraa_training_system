@@ -11,7 +11,7 @@ class StudentController extends Base5Controller
 
 
 
-    public function exportPdfHeadings()
+    public function exportHeadings()
     {
         return [
             'إسم الطالب',

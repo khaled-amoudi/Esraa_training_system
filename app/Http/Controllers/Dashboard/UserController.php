@@ -55,9 +55,9 @@ class UserController extends Controller
 
         // PRG => Post Redirect Get
         if (!$model) {
-            return redirect()->route('dashboard.teacher.index')->with('fail', 'Something Went Wrong !!');
+            return redirect()->route('dashboard.teacher.index')->with('fail', 'حدث خطأ ما أثناء العملية !!');
         }
-        return redirect()->route('dashboard.teacher.index')->with('success', 'Teacher Created Successfully');
+        return redirect()->route('dashboard.teacher.index')->with('success', 'تم إنشاء المدرب بنجاح');
     }
 
 
@@ -68,7 +68,7 @@ class UserController extends Controller
         // $objectResource = new ($this->resource)($object);
         $model = $objectResource->resolve();
         if (!$model) {
-            return redirect()->route('dashboard.teacher.index')->with('fail', 'Teacher Doesn`t Exist');
+            return redirect()->route('dashboard.teacher.index')->with('fail', 'المدرب غير موجود !!');
         }
         return view('dashboard.teacher.show', compact('model'));
     }
@@ -79,7 +79,7 @@ class UserController extends Controller
     {
         $model = $this->model->find($id);
         if (!$model) {
-            return redirect()->route('dashboard.teacher.index')->with('fail', 'Teacher Doesn`t Exist');
+            return redirect()->route('dashboard.teacher.index')->with('fail', 'المدرب غير موجود !!');
         }
         return view('dashboard.teacher.edit', compact('model'));
     }
@@ -88,7 +88,7 @@ class UserController extends Controller
     {
         $model = $this->model->find($id);
         if (!$model) {
-            return redirect()->route('dashboard.teacher.index')->with('fail', 'Teacher Doesn`t Exist');
+            return redirect()->route('dashboard.teacher.index')->with('fail', 'المدرب غير موجود !!');
         }
 
 
@@ -108,7 +108,7 @@ class UserController extends Controller
         ]);
 
         if ($updated) {
-            return redirect()->route('dashboard.teacher.index')->with('success', 'Teacher Updated Successfully');
+            return redirect()->route('dashboard.teacher.index')->with('success', 'تم تحديث بيانات المدرب بنجاح');
         }
     }
 
@@ -117,12 +117,12 @@ class UserController extends Controller
     {
         $model = $this->model->find($id);
         if (!$model) {
-            return redirect()->route('dashboard.teacher.index')->with('fail', 'Teacher Doesn`t Exist');
+            return redirect()->route('dashboard.teacher.index')->with('fail', 'المدرب غير موجود !!');
         }
         $deleted = $model->delete();
 
         if ($deleted) // DO NOT check if the image was deleted, it will case an error
-            return redirect()->route('dashboard.teacher.index')->with('success', 'Teacher Deleted Successfully');
+            return redirect()->route('dashboard.teacher.index')->with('success', 'تمت أرشفة المدرب بنجاح');
     }
 
     public function trash()
@@ -136,7 +136,7 @@ class UserController extends Controller
     {
         $model = $this->model->onlyTrashed()->findOrFail($id);
         $model->restore();  // make deleted_at = NULL
-        return redirect()->route('dashboard.teacher.trash')->with('success', 'Teacher Restored Successfully');
+        return redirect()->route('dashboard.teacher.trash')->with('success', 'تم إستعادة بيانات المدرب بنجاح');
     }
     public function forceDelete($id)
     {
@@ -147,7 +147,7 @@ class UserController extends Controller
         // DELETE RELATIONS [groups, students of groups]
         ////////////////////////////////////////////////
 
-        return redirect()->route('dashboard.teacher.trash')->with('success', 'Teacher Deleted Forever Successfully');
+        return redirect()->route('dashboard.teacher.trash')->with('success', 'تم حذف المدرب بشكل نهائي بنجاح');
     }
 
 
@@ -168,7 +168,7 @@ class UserController extends Controller
     public function exportExcel()
     {
         $headings = $this->exportExcelHeadings();
-        $collection = $this->model->get($this->exportExcelCollection());
+        $collection = $this->model->where('role', 0)->get($this->exportExcelCollection());
         // $collection = $this->resource::collection($this->exportExcelCollection())->collect();
         return Excel::download(new BaseExport($headings, $collection), 'teacher_.xlsx');
     }
@@ -210,8 +210,8 @@ class UserController extends Controller
     public function exportHeadings()
     {
         return [
-            'name',
-            'personal Id'
+            'إسم المدرب',
+            'رقم الهوية'
         ];
     }
     public function exportCollection()

@@ -68,9 +68,9 @@ class TeacherAttendanceController extends Base5Controller
         ]);
 
         if (!$deactiveate_status) {
-            return redirect()->route($this->route_index())->with('fail', 'Something Went Wrong !!');
+            return redirect()->route($this->route_index())->with('fail', 'حدث خطأ ما أثناء العملية !!');
         }
-        return redirect()->route($this->route_index())->with('success', 'Teacher Attendance Status De-Activated Successfully');
+        return redirect()->route($this->route_index())->with('success', 'تم تعطيل صلاحية التعديل على حصر دوام المدرب');
     }
 
 
@@ -93,7 +93,7 @@ class TeacherAttendanceController extends Base5Controller
     }
 
 
-    public function exportHeadings()
+    public function exportPdfHeadings()
     {
         return [
             'إسم المدرب',
@@ -104,4 +104,16 @@ class TeacherAttendanceController extends Base5Controller
             'وقت المغادرة'
         ];
     }
+
+//    public function exportExcelHeadings()
+//    {
+//        return [
+//            'إسم المدرب',
+//            'الفترة',
+//            'المجموعة',
+//            'التاريخ',
+//            'وقت الحضور',
+//            'وقت المغادرة'
+//        ];
+//    }
 }

@@ -22,6 +22,7 @@ class UserResource extends JsonResource
             'role' => $this->role,
             'groups' => $this->groups ? $this->groups : [],
             'teacherAttendances' => $this->teacherAttendances ? TeacherAttendanceResource::collection($this->teacherAttendances)->resolve() : [],
+            'deleted_at' => $this->deleted_at?->diffForHumans(),
         ];
     }
 }

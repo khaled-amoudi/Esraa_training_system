@@ -36,7 +36,8 @@ Route::get('/', function () {
 //     dd('welcome teacher');
 // });
 Route::get('/teacher', [TeacherController::class, 'index'])->middleware(['auth', 'verified'])->name('teacher');
-
+Route::get('/teacher/{id}/edit', [TeacherController::class, 'edit'])->middleware(['auth', 'verified'])->name('teacher.edit');
+Route::put('/teacher/{id}/update', [TeacherController::class, 'update'])->middleware(['auth', 'verified'])->name('teacher.update');
 
 $routes_all_teacher = [];
 $routes_without_softdelete_export_import_teacher = [];

@@ -95,7 +95,7 @@ class Base5Controller extends BaseController
 
         // PRG => Post Redirect Get
         if (!$model) {
-            return redirect()->route($this->route_index())->with('fail', 'Something Went Wrong !!');
+            return redirect()->route($this->route_index())->with('fail', 'حدث خطأ ما أثناء العملية !!');
         }
         return redirect()->route($this->route_index())->with('success', $this->printModelText() . ' Created Successfully');
     }

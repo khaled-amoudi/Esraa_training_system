@@ -177,4 +177,23 @@ class GroupController extends Base5Controller
             'عدد أيام الدوام'
         ];
     }
+
+
+
+
+    public function exportExcelHeadings()
+    {
+        return [
+            'إسم المجموعة',
+            'رقم المجموعة',
+            'عدد أيام الدوام'
+        ];
+    }
+    public function exportExcelCollection(){
+        return [
+            'name',
+            'group_number',
+            'attendance_days',
+        ];
+    }
 }

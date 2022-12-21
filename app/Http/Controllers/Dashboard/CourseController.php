@@ -11,7 +11,7 @@ class CourseController extends Base5Controller
     public $route_view_name = "dashboard.course";
 
 
-    public function exportPdfHeadings()
+    public function exportHeadings()
     {
         return [
             'إسم المساق',
