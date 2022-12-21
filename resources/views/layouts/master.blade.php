@@ -105,12 +105,6 @@
     <!-- Bootstrap bundle JS -->
     <script src="{{ asset('admin/assets/js/bootstrap.bundle.min.js') }}"></script>
 
-    <!-- date time picker scripts-->
-    {{-- <script src="{{ asset('admin/assets/plugins/datetimepicker/js/legacy.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/datetimepicker/js/picker.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/datetimepicker/js/picker.time.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/datetimepicker/js/picker.date.js') }}"></script> --}}
-
     <!--plugins-->
     <script src="{{ asset('admin/assets/js/jquery.min.js') }}"></script>
     <script src="{{ asset('admin/assets/plugins/simplebar/js/simplebar.min.js') }}"></script>
@@ -118,13 +112,6 @@
     <script src="{{ asset('admin/assets/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('admin/assets/js/pace.min.js') }}"></script>
 
-    <script src="{{ asset('admin/assets/plugins/chartjs/js/Chart.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/chartjs/js/Chart.extension.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/apexcharts-bundle/js/apexcharts.min.js') }}"></script>
-
-    <script src="{{ asset('admin/assets/plugins/notifications/js/lobibox.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/notifications/js/notifications.min.js') }}"></script>
-    <script src="{{ asset('admin/assets/plugins/notifications/js/notification-custom-script.js') }}"></script>
     <script src="{{ asset('admin/assets/js/pace.min.js') }}"></script>
 
     <!--app-->
